@@ -1,11 +1,15 @@
-import { HomePage } from "./pages/HomePage"
+import { HomePage } from "./pages/HomePage";
+import "../src/styles/index.scss";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 function App() {
   return (
     <>
       <HomePage />
+      <ToastContainer position="bottom-right" autoClose={2 * 1000} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,11 +1,22 @@
 import { ProductCard } from "./ProductCard";
-
-export const ProductList = ({ productList }) => {
-   return (
-      <ul>
-         {productList.map((product) => (
-            <ProductCard key={product.id} product={product} />
-         ))}
-      </ul>
-   );
+import styles from "./style.module.scss";
+export const ProductList = ({ addItemCart, productListFinal, addCount }) => {
+  return (
+    <div className="container">
+      {productListFinal.length > 0 ? (
+        <ul className={styles.productList}>
+          {productListFinal.map((product) => (
+            <ProductCard
+              addCount={addCount}
+              addItemCart={addItemCart}
+              key={product.id}
+              product={product}
+            />
+          ))}
+        </ul>
+      ) : (
+        <p>Nenhum produto encontrado</p>
+      )}
+    </div>
+  );
 };

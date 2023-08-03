@@ -1,0 +1,28 @@
+*{
+    box-sizing: border-box;
+    margin:0;
+    padding: 0;
+}
+ul,ol{
+    list-style: none;
+}
+button{
+    cursor:pointer;
+    background-color: transparent;
+    border:none;
+}
+input, select,textarea{
+    background-color: transparent;
+    border:none;
+}
+img{
+    max-width: 100%;
+}
+a{
+    text-decoration: none;
+}
+input{
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+}

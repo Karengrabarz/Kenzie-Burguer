@@ -1,0 +1,16 @@
+.productList{
+    display: flex;
+    gap:clamp(1.25rem,2vw,3.5rem);
+    overflow: auto;
+    margin-right: -1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+    @media(min-width:1024px) {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        // display: grid;
+        // grid-template-columns: repeat(4,1fr);
+        
+    }
+}
