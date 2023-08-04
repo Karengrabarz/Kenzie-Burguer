@@ -1,7 +1,8 @@
 import { MdClose } from "react-icons/md";
 import { CartItemCard } from "./CartItemCard";
 import styles from "./style.module.scss";
-import { useEffect, useRef } from "react";
+import { useOutClick } from "../../hooks/useOutClick";
+import { useKeyDown } from "../../hooks/useKeyDown";
 
 export const CartModal = ({
   setCartList,
@@ -11,30 +12,14 @@ export const CartModal = ({
   setCount,
   setIsOpen,
 }) => {
-  const modalRef = useRef(null);
-  useEffect(() => {
-    const handleOutClick = (event) => {
-      if (!modalRef.current?.contains(event.target)) {
-        setIsOpen(false);
-      }
-    };
-    window.addEventListener("mousedown", handleOutClick);
-    return () => {
-      window.removeEventListener("mousedown", handleOutClick);
-    };
-  }, []);
-  const buttonRef = useRef(null);
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        buttonRef.current?.click();
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
+  const modalRef = useOutClick(()=>{
+    setIsOpen(false)
+  })
+
+  const buttonRef = useKeyDown('Escape',(element)=>{
+    element.click()
+  })
+  
 
   const total = cartList.reduce((prevValue, product) => {
     return prevValue + product.price;
