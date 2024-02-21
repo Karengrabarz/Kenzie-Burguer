@@ -4,7 +4,6 @@ import { Header } from "../../components/Header";
 import { ProductList } from "../../components/ProductList";
 import { productApi } from "../../services/api";
 import { useEffect } from "react";
-import { toast } from "react-toastify";
 
 export const HomePage = () => {
   const localCartList = localStorage.getItem("@BurguerKenzie");
@@ -14,7 +13,7 @@ export const HomePage = () => {
 
   const [productList, setProductList] = useState([]);
   const [search, setSearch] = useState("");
-  const [count, setCount] = useState(cartList.length);
+  const [count, setCount] = useState(localCartList ? JSON.parse(localCartList).reduce((acc,item)=>acc+item.quantity,0) : []);
   const [isOpen, setIsOpen] = useState(false);
 
   const productResult = productList.filter((product) =>
@@ -28,7 +27,6 @@ export const HomePage = () => {
       try {
         const { data } = await productApi.get("/products");
         setProductList(data);
-        console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -43,18 +41,36 @@ export const HomePage = () => {
 
   // adição, exclusão, e exclusão geral do carrinho
   const addItemCart = (item) => {
-    if (!cartList.some((cartItem) => cartItem.id === item.id)) {
-      setCartList([...cartList, item]);
+    const cartItem = cartList.find((cartItem) => cartItem.id === item.id)
+    if (cartItem) {
+      const updatedList = cartList.map((cartItem)=>{
+        if (cartItem.id === item.id){
+          return {...cartItem, quantity: cartItem.quantity+1}
+        }
+        return cartItem
+      })
+      setCartList(updatedList);
       addCount();
-      toast.success("Produto adicionado com sucesso.");
-    } else {
-      toast.error("Produto já adicionado");
+    } else{
+      setCartList([...cartList,{...item,quantity:1}]);
+      addCount();
     }
   };
-
+  
   const removeItemCart = (itemId) => {
-    const newCartList = cartList.filter((cartItem) => cartItem.id !== itemId);
-    setCartList(newCartList);
+    const cartItem = cartList.find((cartItem) => cartItem.id === itemId)
+      if(cartItem.quantity>1){
+        const updatedList = cartList.map((cartItem)=>{
+          if (cartItem.id === itemId){
+            return {...cartItem, quantity: cartItem.quantity-1}
+          }
+          return cartItem
+        })
+        setCartList(updatedList);
+      }else{
+        const newCartList = cartList.filter((cartItem) => cartItem.id !== itemId);
+        setCartList(newCartList);
+      }
   };
 
   const addCount = () => {
@@ -78,6 +94,7 @@ export const HomePage = () => {
         />
         {isOpen ? (
           <CartModal
+            addItemCart={addItemCart}
             setIsOpen={setIsOpen}
             removeItemCart={removeItemCart}
             removeCount={removeCount}

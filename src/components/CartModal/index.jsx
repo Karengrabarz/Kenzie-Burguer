@@ -3,9 +3,11 @@ import { CartItemCard } from "./CartItemCard";
 import styles from "./style.module.scss";
 import { useOutClick } from "../../hooks/useOutClick";
 import { useKeyDown } from "../../hooks/useKeyDown";
+import { useState } from "react";
 
 export const CartModal = ({
   setCartList,
+  addItemCart,
   removeItemCart,
   removeCount,
   cartList,
@@ -19,12 +21,18 @@ export const CartModal = ({
   const buttonRef = useKeyDown('Escape',(element)=>{
     element.click()
   })
-  
 
-  const total = cartList.reduce((prevValue, product) => {
-    return prevValue + product.price;
-  }, 0);
+  const getTotal = () => {
+    let sum = 0;
 
+    for (let item of cartList) {
+      sum += item.price * item.quantity;
+    }
+
+    return sum;
+  };
+
+  const cartTotal = getTotal();
   return (
     <div className={styles.modalOverlay} role="dialog">
       <div ref={modalRef} className={styles.flexBox}>
@@ -44,19 +52,20 @@ export const CartModal = ({
           <ul>
             {cartList.map((product) => (
               <CartItemCard
-                removeItemCart={removeItemCart}
-                removeCount={removeCount}
-                key={product.id}
-                product={product}
+              addItemCart={addItemCart}
+              removeItemCart={removeItemCart}
+              removeCount={removeCount}
+              key={product.id}
+              product={product}
               />
-            ))}
+                ))}
           </ul>
         </div>
         <div className={styles.footerCart}>
           <div>
             <span className="span1 grey600">Total</span>
             <span className="span1 grey300">
-              {total.toLocaleString("pt-BR", {
+              {cartTotal.toLocaleString("pt-BR", {
                 style: "currency",
                 currency: "BRL",
               })}
