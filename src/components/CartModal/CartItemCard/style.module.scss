@@ -4,12 +4,12 @@
     height: 80px;
     margin: 0;
     justify-content: space-around;
-    padding: 0px 1.375rem;
+    padding: 0px 1rem;
     gap:10px;
 
     img{
-        width: 55px;
-        height: 53px;
+        width: 3.125rem;
+        height: 3.125rem;
     }
     &>div:first-child{
         display: flex;
@@ -22,11 +22,11 @@
         
     }
     &>div:last-child{
-        display: flex;
-        justify-content: space-between;
+    //     display: flex;
+    //     justify-content: space-between;
         width: 100%;
-        align-content: center;
-        align-items: flex-start;
+    //     align-content: center;
+    //     align-items: flex-start;
         
     }
     button{
@@ -38,9 +38,22 @@
     align-items: center;
     justify-content: center;
     gap:10px;
-    padding-left: 10px;
-    padding-right: 10px;
+    font-size: 15px;
+    // padding-left: 10px;
+    // padding-right: 10px;
     button{
         color:black;
     }
+}
+.cart{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.priceCart{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
 }

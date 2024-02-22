@@ -10,6 +10,18 @@
         color:var(--color-grey-600);
     }
 }
+.title-sm{
+    font-family: var(--font-family);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.4;
+    &.white{
+        color:#FFF;
+    }
+    &.grey600{
+        color:var(--color-grey-600);
+    }
+}
 .span1{
     font-family: var(--font-family);
     font-size: 14px;
