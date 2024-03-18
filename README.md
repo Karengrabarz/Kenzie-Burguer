@@ -1,5 +1,5 @@
 ## Kenzie-Burguer
-Esta aplicação permite o usuuário a manipular um carrinho de compras e pesquisar os produtos disponíveis.
+Esta aplicação permite o usuário a manipular um carrinho de compras e pesquisar os produtos disponíveis.
 
 ## Instruções
 1. Comece realizando o clone do repositório.
